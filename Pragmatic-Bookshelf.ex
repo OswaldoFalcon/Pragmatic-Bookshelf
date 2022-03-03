@@ -9,7 +9,8 @@ defmodule Taxes do
     new_taxes = tax_nc ++ tax_tx
 
     #eliminar NC y TX
-    sin = orders |> Enum.filter(fn x -> x.ship_to != :NC and x.ship_to != :TX  end)
+    sin = orders |> Enum.filter(fn x -> x.ship_to != :NC and x.ship_to != :TX  end) |> Enum.map(fn x -> Map.put(x, :total_amount, x.net_amount) end )
+
 
     #junta 
     sin ++ new_taxes
